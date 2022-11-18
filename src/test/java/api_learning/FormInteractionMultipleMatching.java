@@ -13,28 +13,25 @@ import java.util.List;
 public class FormInteractionMultipleMatching {
     public static void main(String[] args) {
         WebDriver driver = DriverFactory.getChromeDriver();
-        try{
-            // Navigate
-            driver.get("http://the-internet.herokuapp.com/login");
-
-            // Define selector value
-
-            By inputFieldSel = By.tagName("input_taolao");
-            //   WebElement usernameElem = driver.findElement(inputFieldSel);
-            List<WebElement> inputFieldElem = driver.findElements(inputFieldSel);
-            if(inputFieldElem.isEmpty()){
+        try {
+            //Navigate to the target page
+            driver.get("https://the-internet.herokuapp.com/login");
+            //Define selector values
+            By inputFielsdSel = By.tagName("input");
+            WebElement usernameElem = driver.findElement(inputFielsdSel);
+            List<WebElement> inputFieldsElem = driver.findElements(inputFielsdSel);
+            if (inputFieldsElem.isEmpty()) {
                 throw new RuntimeException("[ERR] There is no input fields");
+
             }
-            final int USENAME_INDEX = 0;
+            final int USERNAME_INDEX = 0;
             final int PASSWORD_INDEX = 1;
 
-            inputFieldElem.get(USENAME_INDEX).sendKeys("teo");
-            inputFieldElem.get(PASSWORD_INDEX).sendKeys("12345678");
-
+            inputFieldsElem.get(USERNAME_INDEX).sendKeys("teo");
+            inputFieldsElem.get(PASSWORD_INDEX).sendKeys("12345678");
             //Debug purpose ONLY
             Thread.sleep(3000);
-
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         driver.quit();

@@ -7,11 +7,11 @@ public class SelectEx extends Select {
 
     private static final String OPTION_1 = "Option 1";
 
-    public SelectEx(WebElement dropDownElem) {
-        super(dropDownElem);
+    public SelectEx(WebElement dropdownElem) {
+        super(dropdownElem);
     }
 
-    public void SelectOption1 (){
+    public void selectOption01() {
         selectByVisibleText(OPTION_1);
     }
 }

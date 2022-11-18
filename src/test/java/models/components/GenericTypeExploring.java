@@ -3,15 +3,15 @@ package models.components;
 import java.lang.reflect.Constructor;
 
 public class GenericTypeExploring {
-
-    public <Teo extends LoginPage> void login (Class<Teo> loginPageClass){
-        Class<?>[] parameter = new Class[]{};
-
+    public <T extends LoginPage> void login(Class<T> LoginPageClass) {
+        Class<?>[] parameters = new Class[]{};
         try {
-            Constructor<Teo> constructor = loginPageClass.getConstructor(parameter);
-            Teo loginPageObj = constructor.newInstance();
-            loginPageObj.login();
-        }catch (Exception e){
+            Constructor<T> constructor = LoginPageClass.getConstructor(parameters);
+            T loginPageOpj = constructor.newInstance();
+            loginPageOpj.Login();
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -19,6 +19,5 @@ public class GenericTypeExploring {
     public static void main(String[] args) {
         new GenericTypeExploring().login(InternalLoginPage.class);
         new GenericTypeExploring().login(ExternalLoginPage.class);
-
     }
 }

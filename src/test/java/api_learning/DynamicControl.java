@@ -11,54 +11,55 @@ import url.Urls;
 import java.time.Duration;
 
 public class DynamicControl {
-
     public static void main(String[] args) {
 
-        WebDriver driver = DriverFactory.getChromeDriver();
 
+        WebDriver driver = DriverFactory.getChromeDriver();
         try {
 
-            // Navigate to the target page
-            driver.get(Urls.BASE_URL.concat(Urls.DYNAMIC_CONTROL_SLUG));
+            //Navigate to the target page
+            driver.get(Urls.HEROKU_BASE_URL.concat(Urls.DYNAMIC_CONTROL_SLUG));
 
-            // Define 2 forms locator
+
+            //Define 2 forms locator
             By checkboxFormSel = By.id("checkbox-example");
             By inputFormSel = By.cssSelector("#input-example");
 
-            // Interact with the checkbox form elems
+            //Interact with the checkbox form elems
             WebElement checkboxFormElem = driver.findElement(checkboxFormSel);
             WebElement checkboxElem = checkboxFormElem.findElement(By.tagName("input"));
-
-            // If the checkbox is not selected then select it
-            if(!checkboxElem.isSelected())
+            //If the checkbox is not selected then select it
+            if (!checkboxElem.isSelected()) {
                 checkboxElem.click();
+            }
+            //Debug purpose ONLY
+            Thread.sleep(1000);
 
-            // Debug purpose
-            Thread.sleep(2000);
 
-            // Interact with the input form elems
+            // Interact with the import form elems
             WebElement inputFormElem = driver.findElement(inputFormSel);
-            WebElement inputFieldElem = inputFormElem.findElement(By.tagName("input"));
-            WebElement inputFormBtnElem = inputFormElem.findElement(By.tagName("button"));
+            WebElement inputFieldElem = inputFormElem.findElement(By.tagName("input "));
+            WebElement inputFormBtnElem = inputFormElem.findElement(By.tagName("button "));
 
-            // If the text field is not enabled then click the button
-            if(!inputFieldElem.isEnabled()){
+
+            //if the text field is not enabled then click on th button
+            if (!inputFieldElem.isEnabled()) {
                 inputFormBtnElem.click();
-
-                // Wait until the text field is enabled then send key
+                //Wait until the text field is enable then send keys
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20L));
                 wait.until(new WaitForElementEnabled(By.cssSelector("#input-example input")));
+
             }
+            inputFieldElem.sendKeys("This is the new text!");
 
-            inputFieldElem.sendKeys("This is the new text!!!!!!");
 
-            // Debug purpose
+            //Debug  purpose only
             Thread.sleep(2000);
-
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         driver.quit();
+
     }
+
 }

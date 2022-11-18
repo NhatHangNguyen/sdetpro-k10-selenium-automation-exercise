@@ -7,57 +7,41 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import url.Urls;
 
-import javax.swing.*;
 import java.util.List;
 
 public class MouseHover {
-
     private final static By figureSel = By.className("figure");
-    private final static By profileNameSel = By.cssSelector(".figcaption h5");
-    private final static By profileLinkSel = By.cssSelector(".figcaption a");
-
-
+    private final static By profileNameSel = By.cssSelector(".ficaption h5");
+    private final static By profileLinkSel = By.cssSelector(".ficaption a");
 
     public static void main(String[] args) {
-
         WebDriver driver = DriverFactory.getChromeDriver();
-
         try {
+            driver.get(Urls.HEROKU_BASE_URL.concat(Urls.HOVERS_SLUG));
 
-            // Navigate to the hover page
-            driver.get(Urls.BASE_URL.concat(Urls.HOVERS_SLUG));
 
-            // Locate all image elems
-            List<WebElement> fifureElem = driver.findElements(figureSel);
-            if (fifureElem.isEmpty()){
-                throw new RuntimeException("[ERROR] There is no figure to test!");
+            List<WebElement> figuresElem = driver.findElements(figureSel);
+            if (figuresElem.isEmpty()) {
+                throw new RuntimeException("[ERR] There is no figure to test!");
             }
-
             Actions actions = new Actions(driver);
-
-            for (WebElement figureElem : fifureElem) {
-
+            for (WebElement figureElem : figuresElem) {
                 WebElement profileNameElem = figureElem.findElement(profileNameSel);
                 WebElement profileLinkElem = figureElem.findElement(profileLinkSel);
 
-                // BEFORE mouse hover
-                System.out.println(profileNameElem.getText() + ": " + profileLinkElem.isDisplayed());
-                System.out.println(profileNameElem.getText() + ": " + profileLinkElem.getAttribute("href"));
+                System.out.println((profileNameElem.getText() + ":" + profileLinkElem.isDisplayed()));
 
-                // Mouse hover
                 actions.moveToElement(figureElem).perform();
 
-                System.out.println("====== AFTER MOUSE HOVER ======");
+                System.out.println("======AFTER mouse hover=====");
 
-                // AFTER mouse hover
-                System.out.println(profileNameElem.getText() + ": " + profileLinkElem.isDisplayed());
+                System.out.println((profileNameElem.getText() + ":" + profileLinkElem.isDisplayed()));
+
             }
-
-            // Debug purpose
             Thread.sleep(2000);
-
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+
         }
         driver.quit();
     }

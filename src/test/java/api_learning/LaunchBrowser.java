@@ -6,33 +6,30 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class LaunchBrowser {
+
     public static void main(String[] args) {
         String currentProjectLocation = System.getProperty("user.dir");
         String chromeDriverLocation;
+        if (OS.isFamilyMac()) {
+            chromeDriverLocation = "src/test/resources/drivers/chromedriver";
 
-        if(OS.isFamilyMac()){
-            chromeDriverLocation = "/src/test/resources/drivers/chromedriver.exe";
-        } else if(OS.isFamilyWindows()){
-            chromeDriverLocation = "\\src\\test\\resources\\drivers\\chromedriver.exe";
+        } else if (OS.isFamilyWindows()) {
+            chromeDriverLocation = "\\src\\test\\resources\\drivers\\chromedriver";
         } else {
-            throw new RuntimeException("[ERR] Couldn't detect the OS");
+            throw new RuntimeException("[ERR] Couldn't delete the OS");
         }
         String chromeAbsoluteLocation = currentProjectLocation.concat(chromeDriverLocation);
-
         System.setProperty("webdriver.chrome.driver", chromeAbsoluteLocation);
 
-        // Set uo chrome Options | Optional
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--incognito");
-
+        chromeOptions.addArguments("--ignored");
         WebDriver driver = new ChromeDriver(chromeOptions);
-        driver.get("https://learn.sdetpro.com");
-
-        // DEBUG PURPOSE ONLY
-        try{
+        driver.get("https://learn.sdetpro.com/");
+        try {
             Thread.sleep(3000);
-        } catch (Exception ignored){}
+        } catch (Exception ignored) {
 
+        }
         driver.quit();
     }
 }
