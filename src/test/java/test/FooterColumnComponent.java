@@ -1,4 +1,4 @@
-package models.components.global.footer;
+package test;
 
 import models.components.Component;
 import org.openqa.selenium.By;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FooterColumnComponent extends Component {
     private static final By headerSel = By.tagName("h3");
-    private static final By linkSel = By.tagName("li a");
+    private static final By linkSel = By.cssSelector("li a");
 
     public FooterColumnComponent(WebDriver driver, WebElement component) {
         super(driver, component);
